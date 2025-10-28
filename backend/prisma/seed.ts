@@ -88,7 +88,7 @@ async function main() {
       diasDisponibles: 5,
       esVariable: false,
       requiereAprobacion: true,
-      requiereDocumento: true,
+      requiereDocumento: false,
       unidadTiempo: 'dias',
     },
   });
@@ -125,7 +125,7 @@ async function main() {
       diasDisponibles: null, // Variable
       esVariable: true,
       requiereAprobacion: true,
-      requiereDocumento: false,
+      requiereDocumento: true,
       unidadTiempo: 'dias',
     },
   });
@@ -152,7 +152,7 @@ async function main() {
         nombre: 'Licencia de Paternidad',
         descripcion:
           'Licencia remunerada por nacimiento según Ley 1822 de 2017',
-        diasAnuales: 8,
+        diasAnuales: 28,
         tipoEmpleadoId: tipoAdmin.id,
       },
       {
