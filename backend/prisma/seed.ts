@@ -60,7 +60,7 @@ async function main() {
     data: {
       nombre: 'Paternidad',
       descripcion: 'Licencia de paternidad remunerada según Ley 1822 de 2017',
-      diasDisponibles: 8, // Ajustado según ley colombiana actualizada
+      diasDisponibles: 28, // Ajustado según ley colombiana actualizada
       esVariable: false,
       requiereAprobacion: true,
       requiereDocumento: true,
@@ -359,7 +359,7 @@ async function main() {
   console.log('\n💡 Tipos de solicitud configurados:');
   console.log('- Vacaciones: 15 días');
   console.log('- Maternidad: 126 días (18 semanas)');
-  console.log('- Paternidad: 8 días');
+  console.log('- Paternidad: 28 días');
   console.log('- Incapacidad: Variable (requiere documento)');
   console.log('- Luto: 5 días');
   console.log('- Calamidad: Variable');
