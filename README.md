@@ -15,7 +15,7 @@ Sistema completo de gestión de solicitudes laborales que incluye:
 - Otros permisos
 
 ## 🚀 Tecnologías
-
+## Backend
 - **NestJS** - Framework de Node.js
 - **Prisma** - ORM para PostgreSQL
 - **PostgreSQL** - Base de datos
@@ -23,10 +23,17 @@ Sistema completo de gestión de solicitudes laborales que incluye:
 - **bcrypt** - Encriptación de contraseñas
 - **TypeScript** - Lenguaje de programación
 
+## Frontend
+**ReactJS** - Framework de JavasCript
+**Router Dom** - Manejo de Rutas
+**React_Icons** - Libreria de Iconos React
+**
+
 ## 📦 Requisitos Previos
 
 - Node.js v18+
 - PostgreSQL 14+
+- ReactJS 19+
 - npm o yarn
 
 ## 🔧 Instalación
@@ -35,6 +42,7 @@ Sistema completo de gestión de solicitudes laborales que incluye:
 ```bash
 git clone <url-repositorio>
 cd backend
+cd frontend (En una nueva terminal)
 ```
 
 2. **Instalar dependencias**
@@ -76,7 +84,8 @@ npm run prisma:seed
 
 ```bash
 # Desarrollo
-npm run start:dev          # Inicia el servidor en modo desarrollo con hot-reload
+npm run start:dev          # Inicia el servidor en modo desarrollo con hot-reload (Backend)
+npm run start              # Inicia el servidor en modo desarrollo (Frontend)
 
 # Producción
 npm run build             # Compila el proyecto
