@@ -1,5 +1,5 @@
 # Sysges
-# SysGes Backend - Sistema de Gestión de Solicitudes
+# SysGes - Sistema de Gestión de Solicitudes
 
 Backend desarrollado con NestJS para el Sistema de Gestión de Solicitudes de Permisos y Vacaciones.
 
