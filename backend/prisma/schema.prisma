@@ -1,0 +1,233 @@
+// =====================================================
+// CONFIGURACIÓN
+// =====================================================
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// =====================================================
+// ENUMS
+// =====================================================
+enum EstadoSolicitud {
+  Pendiente
+  Aprobado
+  Rechazado
+
+  @@map("estado_solicitud")
+}
+
+enum DecisionAprobacion {
+  Aprobado
+  Rechazado
+
+  @@map("decision_aprobacion")
+}
+
+enum EstadoEvento {
+  Programado
+  EnCurso
+  Finalizado
+
+  @@map("estado_evento")
+}
+
+// =====================================================
+// MODELOS
+// =====================================================
+
+/// Tipos de empleado: Administrativo, Operativo, Directivo, etc.
+model TipoEmpleado {
+  id          Int         @id @default(autoincrement())
+  nombreTipo  String      @db.VarChar(50)
+  descripcion String?     @db.Text
+  
+  empleados   Empleado[]
+  politicas   Politica[]
+  
+  createdAt   DateTime    @default(now()) @db.Timestamptz
+  updatedAt   DateTime    @updatedAt @db.Timestamptz
+
+  @@map("tipo_empleado")
+}
+
+/// Información de empleados
+model Empleado {
+  id              Int            @id @default(autoincrement())
+  nombre          String         @db.VarChar(100)
+  apellido        String         @db.VarChar(100)
+  tipoEmpleadoId  Int?
+  cargo           String?        @db.VarChar(100)
+  departamento    String?        @db.VarChar(100)
+  correo          String         @unique @db.VarChar(150)
+  password        String?        @db.VarChar(255)
+  fechaIngreso    DateTime       @db.Date
+  supervisorId    Int?
+  
+  // Relaciones
+  tipoEmpleado    TipoEmpleado?  @relation(fields: [tipoEmpleadoId], references: [id], onDelete: SetNull)
+  supervisor      Empleado?      @relation("Supervision", fields: [supervisorId], references: [id], onDelete: SetNull)
+  subordinados    Empleado[]     @relation("Supervision")
+  
+  solicitudes     Solicitud[]    @relation("EmpleadoSolicitudes")
+  aprobaciones    Aprobacion[]
+  saldoDias       SaldoDias[]
+  
+  createdAt       DateTime       @default(now()) @db.Timestamptz
+  updatedAt       DateTime       @updatedAt @db.Timestamptz
+  
+  @@index([supervisorId], name: "idx_empleado_supervisor")
+  @@index([tipoEmpleadoId])
+  @@index([correo])
+  @@map("empleado")
+}
+
+/// Políticas de permisos y vacaciones
+model Politica {
+  id              Int           @id @default(autoincrement())
+  nombre          String        @db.VarChar(100)
+  descripcion     String?       @db.Text
+  diasAnuales     Int?          @default(0)
+  tipoEmpleadoId  Int?
+  
+  tipoEmpleado    TipoEmpleado? @relation(fields: [tipoEmpleadoId], references: [id], onDelete: Cascade)
+  solicitudes     Solicitud[]
+  
+  createdAt       DateTime      @default(now()) @db.Timestamptz
+  updatedAt       DateTime      @updatedAt @db.Timestamptz
+  
+  @@map("politica")
+}
+
+/// Tipos de solicitud: Vacaciones, Permiso, Licencia
+model TipoSolicitud {
+  id                  Int         @id @default(autoincrement())
+  nombre              String      @db.VarChar(50)
+  descripcion         String?     @db.Text
+  diasDisponibles     Int?        // NULL para tipos variables
+  esVariable          Boolean     @default(false) // true para Incapacidad, Calamidad, Otro
+  requiereAprobacion  Boolean     @default(true)
+  requiereDocumento   Boolean     @default(false)
+  unidadTiempo        String?     @db.VarChar(20) // "dias", "minutos", "horas"
+  
+  solicitudes         Solicitud[]
+  saldoDias           SaldoDias[]
+  
+  createdAt           DateTime    @default(now()) @db.Timestamptz
+  updatedAt           DateTime    @updatedAt @db.Timestamptz
+
+  @@map("tipo_solicitud")
+}
+
+/// Solicitudes de permisos/vacaciones
+model Solicitud {
+  id                Int              @id @default(autoincrement())
+  empleadoId        Int
+  tipoSolicitudId   Int
+  politicaId        Int?
+  fechaInicio       DateTime         @db.Date
+  fechaFin          DateTime         @db.Date
+  diasSolicitados   Int
+  estado            EstadoSolicitud  @default(Pendiente)
+  fechaSolicitud    DateTime         @default(now()) @db.Timestamptz
+  motivo            String?          @db.Text
+  
+  // Relaciones
+  empleado          Empleado         @relation("EmpleadoSolicitudes", fields: [empleadoId], references: [id], onDelete: Cascade)
+  tipoSolicitud     TipoSolicitud    @relation(fields: [tipoSolicitudId], references: [id], onDelete: Cascade)
+  politica          Politica?        @relation(fields: [politicaId], references: [id], onDelete: SetNull)
+  
+  aprobaciones      Aprobacion[]
+  calendarios       Calendario[]
+  documentos        Documento[]
+  
+  createdAt         DateTime         @default(now()) @db.Timestamptz
+  updatedAt         DateTime         @updatedAt @db.Timestamptz
+  
+  @@index([empleadoId], name: "idx_solicitud_empleado")
+  @@index([estado], name: "idx_solicitud_estado")
+  @@index([fechaInicio, fechaFin])
+  @@map("solicitud")
+}
+
+/// Aprobaciones de solicitudes
+model Aprobacion {
+  id                Int                  @id @default(autoincrement())
+  solicitudId       Int
+  aprobadorId       Int
+  fechaAprobacion   DateTime             @default(now()) @db.Timestamptz
+  decision          DecisionAprobacion
+  comentarios       String?              @db.Text
+  
+  solicitud         Solicitud            @relation(fields: [solicitudId], references: [id], onDelete: Cascade)
+  aprobador         Empleado             @relation(fields: [aprobadorId], references: [id], onDelete: Cascade)
+  
+  createdAt         DateTime             @default(now()) @db.Timestamptz
+  updatedAt         DateTime             @updatedAt @db.Timestamptz
+  
+  @@index([solicitudId])
+  @@index([aprobadorId])
+  @@map("aprobacion")
+}
+
+/// Control de saldo de días disponibles
+model SaldoDias {
+  id                  Int           @id @default(autoincrement())
+  empleadoId          Int
+  tipoSolicitudId     Int?          // NULL = saldo general (vacaciones)
+  totalDias           Int           @default(0)
+  diasUsados          Int           @default(0)
+  diasDisponibles     Int           @default(0)
+  anio                Int
+  
+  empleado            Empleado      @relation(fields: [empleadoId], references: [id], onDelete: Cascade)
+  tipoSolicitud       TipoSolicitud? @relation(fields: [tipoSolicitudId], references: [id], onDelete: SetNull)
+  
+  createdAt           DateTime      @default(now()) @db.Timestamptz
+  updatedAt           DateTime      @updatedAt @db.Timestamptz
+  
+  @@unique([empleadoId, anio, tipoSolicitudId], name: "unique_empleado_anio_tipo")
+  @@index([empleadoId, anio], name: "idx_saldo_empleado_anio")
+  @@map("saldo_dias")
+}
+
+/// Calendario de eventos
+model Calendario {
+  id          Int           @id @default(autoincrement())
+  solicitudId Int
+  fecha       DateTime      @db.Date
+  tipoEvento  String?       @db.VarChar(50)
+  estado      EstadoEvento  @default(Programado)
+  
+  solicitud   Solicitud     @relation(fields: [solicitudId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime      @default(now()) @db.Timestamptz
+  updatedAt   DateTime      @updatedAt @db.Timestamptz
+  
+  @@index([solicitudId])
+  @@index([fecha])
+  @@map("calendario")
+}
+
+/// Documentos adjuntos a solicitudes
+model Documento {
+  id              Int       @id @default(autoincrement())
+  solicitudId     Int
+  nombreArchivo   String    @db.VarChar(200)
+  rutaArchivo     String    @db.Text
+  tipoDocumento   String?   @db.VarChar(100)
+  fechaSubida     DateTime  @default(now()) @db.Timestamptz
+  
+  solicitud       Solicitud @relation(fields: [solicitudId], references: [id], onDelete: Cascade)
+  
+  createdAt       DateTime  @default(now()) @db.Timestamptz
+  updatedAt       DateTime  @updatedAt @db.Timestamptz
+  
+  @@index([solicitudId])
+  @@map("documento")
+}

@@ -1,0 +1,403 @@
+/* ======== BASE ======== */
+.login-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f7faf9;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+.background-logo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+.background-logo img {
+  width: 80%;
+  max-width: 650px;
+  filter: blur(1px);
+}
+
+.login-box {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  padding: 2.8rem 2.5rem;
+  border-radius: 18px;
+  width: 90%;
+  max-width: 460px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.logo {
+  width: 95px;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 1.3rem;
+  color: #1a1a1a;
+  margin-bottom: 0.3rem;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+/* ======== SELECTOR DE ROL ======== */
+.role-selector {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+}
+
+.role-option {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  border: 1.8px solid #cfd8dc;
+  border-radius: 14px;
+  padding: 1rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+}
+
+.role-option:hover {
+  border-color: #00b074;
+  background-color: #f1fbf6;
+}
+
+.role-option.active {
+  border-color: #00b074;
+  background-color: #e6f6ee;
+  box-shadow: 0 0 10px rgba(0, 176, 116, 0.25);
+}
+
+.custom-radio {
+  height: 18px;
+  width: 18px;
+  border: 2px solid #999;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.role-option.active .custom-radio {
+  border-color: #00a46b;
+  background-color: #00a46b;
+}
+
+.role-option div strong {
+  color: #1a1a1a;
+  font-size: 1rem;
+}
+
+.role-option div p {
+  color: #666;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+/* ======== FORMULARIO ======== */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  animation: slideUp 0.9s ease-in-out;
+}
+
+.login-form input {
+  padding: 0.9rem;
+  border: 1px solid #cfd8dc;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.login-form input:focus {
+  border-color: #00a46b;
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.2rem;
+}
+
+.error-message {
+  color: #ffffff;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: #00a46b;
+  border-radius: 4px;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.login-form button {
+  background-color: #00b074;
+  color: white;
+  border: none;
+  padding: 0.95rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.login-form button:hover {
+  background-color: #00925f;
+  transform: scale(1.02);
+}
+/* ======== BOTÓN FLOTANTE DE AYUDA ======== */
+.login-help-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: transparent;
+  color: #21a162;
+  border: none;
+  border-radius: 50%;
+  width: 58px;
+  height: 58px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  z-index: 2000;
+}
+
+.login-help-btn:hover {
+  background-color: white;
+  transform: scale(1.2);
+}
+
+/* Tooltip opcional */
+.login-help-btn::after {
+  content: "¿Ayuda?";
+  position: absolute;
+  right: 90px;
+  background: transparent;
+  color: #17824f;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.login-help-btn:hover::after {
+  opacity: 1;
+  transform: scale(1.9);
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 768px) {
+  .login-help-btn {
+    width: 52px;
+    height: 52px;
+    bottom: 18px;
+    right: 18px;
+    font-size: 1.3rem;
+  }
+
+  .login-help-btn::after {
+    display: none;
+  }
+}
+
+/* ======== MODAL DE AYUDA ======== */
+.help-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.4s ease;
+  z-index: 9999;
+  padding: 1rem;
+  backdrop-filter: blur(8px);
+}
+
+.help-modal-content {
+  position: relative;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  animation: scaleIn 0.4s ease;
+  max-width: 800px;
+  width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.help-modal-content img {
+  width: 100%;
+  border-radius: 12px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* ======== BOTÓN DE CIERRE ======== */
+.help-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #ff4d4d;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.help-close-btn:hover {
+  background: #e63636;
+  transform: scale(1.1);
+}
+
+/* ======== ANIMACIONES ======== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ======== RESPONSIVE MODAL ======== */
+@media (max-width: 480px) {
+  .help-modal-content {
+    padding: 0.8rem;
+    border-radius: 12px;
+  }
+
+  .help-close-btn {
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 768px) {
+  .login-box {
+    width: 92%;
+    padding: 2.2rem 1.8rem;
+  }
+
+  .role-option {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: 0.9rem;
+  }
+
+  .help-content {
+    max-width: 95%;
+    padding: 0.8rem;
+  }
+
+  .help-float {
+    width: 52px;
+    height: 52px;
+    bottom: 18px;
+    right: 18px;
+    font-size: 1.2rem;
+  }
+
+  .help-float::after {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-box {
+    width: 95%;
+    padding: 2rem 1.6rem;
+  }
+
+  .role-selector {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  h1 {
+    font-size: 1.15rem;
+  }
+
+  .role-option div strong {
+    font-size: 0.9rem;
+  }
+
+  .login-form input,
+  .login-form button {
+    font-size: 0.85rem;
+  }
+
+  .help-modal {
+    padding: 0.5rem;
+  }
+
+  .help-content {
+    padding: 0.5rem;
+    border-radius: 10px;
+    max-height: 85vh;
+  }
+
+  .close-btn {
+    top: 6px;
+    right: 8px;
+  }
+}

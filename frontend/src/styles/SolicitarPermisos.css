@@ -1,0 +1,644 @@
+/* ======================= GENERAL ======================= */
+.solicitar-container {
+  min-height: 100vh;
+  padding: 40px;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: radial-gradient(circle at top, #e6f7ec, #ffffff);
+  overflow: hidden;
+}
+
+/* ======================= LOGO DE FONDO ======================= */
+.background-logo-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  animation: slowFloat 10s ease-in-out infinite alternate;
+}
+
+.background-logo {
+  width: 700px;
+  opacity: 0.08;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.1));
+  transition: all 0.5s ease;
+}
+
+/* ======================= TARJETA FORMULARIO ======================= */
+.formulario-card {
+  background-color: rgba(255, 255, 255, 0.96);
+  padding: 35px 45px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  max-width: 650px;
+  backdrop-filter: blur(6px);
+  position: relative;
+  animation: fadeInUp 1s ease;
+}
+
+.logo-formulario {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  animation: fadeIn 1.2s ease;
+}
+
+.logo-formulario img {
+  width: 140px;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.15));
+}
+
+/* ======================= BOTÓN VOLVER ======================= */
+.volver-btn {
+  background: transparent;
+  border: 1px solid #21a162;
+  color: #21a162;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.volver-btn:hover {
+  background-color: #21a162;
+  color: #fff;
+}
+
+/* ======================= ENCABEZADOS ======================= */
+h2 {
+  color: #21a162;
+  text-align: center;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.subtitulo {
+  color: #666;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* ======================= FORMULARIO ======================= */
+label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #444;
+}
+
+select,
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #cce7d5;
+  outline: none;
+  transition: all 0.3s ease;
+}
+select:focus,
+input[type="date"]:focus,
+textarea:focus {
+  border-color: #21a162;
+  box-shadow: 0 0 6px rgba(33, 161, 98, 0.3);
+}
+
+/* ======================= FECHAS ======================= */
+.fechas-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  padding: 0 10px;
+}
+.fechas-container > div {
+  flex: 1;
+  min-width: 180px;
+}
+
+/* ======================= SUBIDA DE ARCHIVO ======================= */
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  border: 2px dashed #21a162;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.upload-container:hover {
+  background-color: #f8fff9;
+  transform: scale(1.02);
+}
+.upload-container input[type="file"] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+}
+.upload-icon {
+  font-size: 30px;
+  color: #21a162;
+  margin-bottom: 6px;
+}
+textarea {
+  min-height: 120px;
+}
+
+/* ======================= BOTÓN ENVIAR ======================= */
+.enviar-btn {
+  margin-top: 25px;
+  background-color: #21a162;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  width: 100%;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.enviar-btn:hover {
+  background-color: #1a8c50;
+  transform: translateY(-3px);
+}
+
+/* ======================= OVERLAY DE CARGA ======================= */
+.overlay-carga {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeIn 0.4s ease;
+}
+.spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+.spinner-logo {
+  width: 100px;
+  margin-bottom: 15px;
+  opacity: 0.9;
+}
+.spinner p {
+  color: #21a162;
+  font-weight: 600;
+}
+
+/* ======================= BANNERS DE ESTADO ======================= */
+.banner-exito, .banner-error {
+  position: fixed;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 25px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  z-index: 1000;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.banner-exito {
+  background-color: #21a162;
+  color: #fff;
+}
+
+.banner-error {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.icono-exito, .icono-error {
+  font-size: 20px;
+  color: #fff;
+}
+
+.animate-banner {
+  animation: slideDown 0.5s ease, fadeOut 0.5s ease 3.5s forwards;
+}
+
+.error-text {
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  display: block;
+}
+
+/* ======================= DETALLE PERMISO ======================= */
+.detalle-permiso {
+  background-color: #f9fdf9;
+  border: 1px solid #d1e7d1;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 168, 107, 0.15);
+  font-size: 0.95rem;
+  color: #276644;
+}
+.detalle-permiso h4 {
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: #004d26;
+}
+
+/* ======================= BOTÓN DE AYUDA ======================= */
+.help-permisses {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: transparent;
+  border: none;
+  color: #276644;
+  font-size: 1.8rem;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 58px;
+  height: 58px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  z-index: 1200;
+}
+.help-permisses:hover {
+  transform: scale(1.9);
+}
+.help-permisses::after {
+  content: "Ayuda";
+  position: absolute;
+  right: 55px;
+  color: #276644;
+  font-weight: 600;
+  font-size: 0.85rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.help-permisses:hover::after {
+  opacity: 1;
+}
+/* ======== BOTÓN DE AYUDA FLOTANTE ======== */
+.permisos-help-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: transparent;
+  color: #21a162;
+  border: none;
+  border-radius: 50%;
+  width: 58px;
+  height: 58px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1200;
+  transition: all 0.3s ease;
+}
+
+.permisos-help-btn:hover {
+  background-color: white;
+  transform: scale(2.08);
+}
+
+.permisos-help-btn::after {
+  content: "¿Ayuda?";
+  position: absolute;
+  right: 50px;
+  background: transparent;
+  color: #21a162;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+.permisos-help-btn:hover::after {
+  opacity: 1;
+  transform: scale(0.9);
+}
+
+/* ======== MODAL DE AYUDA ======== */
+.permisos-help-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.4s ease;
+  backdrop-filter: blur(5px);
+  padding: 1rem;
+}
+
+.permisos-help-content {
+  position: relative;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  animation: slideUp 0.4s ease;
+}
+
+.permisos-help-content img {
+  width: 100%;
+  border-radius: 12px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* ======== BOTÓN DE CIERRE ======== */
+.permisos-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: #ff4d4d;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.permisos-close-btn:hover {
+  background: #e63636;
+  transform: scale(1.05);
+}
+
+/* ======== ANIMACIONES ======== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 768px) {
+  .permisos-help-btn {
+    width: 52px;
+    height: 52px;
+    font-size: 1.5rem;
+    bottom: 18px;
+    right: 18px;
+  }
+
+  .permisos-help-content {
+    max-width: 95%;
+    padding: 0.8rem;
+  }
+
+  .permisos-close-btn {
+    width: 26px;
+    height: 26px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .permisos-help-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 1.3rem;
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .permisos-help-content {
+    padding: 0.6rem;
+    border-radius: 10px;
+  }
+
+  .permisos-help-content img {
+    border-radius: 8px;
+  }
+}
+/* ======== BOTÓN DE AYUDA FLOTANTE ======== */
+.permisos-help-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: transparent;
+  color: #21a162;
+  border: none;
+  border-radius: 50%;
+  width: 58px;
+  height: 58px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1200;
+  transition: all 0.3s ease;
+}
+
+.permisos-help-btn:hover {
+  background-color: white;
+  transform: scale(2.08);
+}
+
+.permisos-help-btn::after {
+  content: "¿Ayuda?";
+  position: absolute;
+  right: 50px;
+  background: transparent;
+  color: #21a162;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+.permisos-help-btn:hover::after {
+  opacity: 1;
+  transform: scale(0.9);
+}
+
+/* ======== MODAL DE AYUDA ======== */
+.permisos-help-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.4s ease;
+  backdrop-filter: blur(5px);
+  padding: 1rem;
+}
+
+.permisos-help-content {
+  position: relative;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  animation: slideUp 0.4s ease;
+}
+
+.permisos-help-content img {
+  width: 100%;
+  border-radius: 12px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* ======== BOTÓN DE CIERRE ======== */
+.permisos-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: #ff4d4d;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.permisos-close-btn:hover {
+  background: #e63636;
+  transform: scale(1.05);
+}
+
+/* ======== ANIMACIONES ======== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 768px) {
+  .permisos-help-btn {
+    width: 52px;
+    height: 52px;
+    font-size: 1.5rem;
+    bottom: 18px;
+    right: 18px;
+  }
+
+  .permisos-help-content {
+    max-width: 95%;
+    padding: 0.8rem;
+  }
+
+  .permisos-close-btn {
+    width: 26px;
+    height: 26px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .permisos-help-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 1.3rem;
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .permisos-help-content {
+    padding: 0.6rem;
+    border-radius: 10px;
+  }
+
+  .permisos-help-content img {
+    border-radius: 8px;
+  }
+}
+
+/* ======================= RESPONSIVE ======================= */
+@media (max-width: 768px) {
+  .background-logo { width: 420px; }
+  .logo-formulario img { width: 110px; }
+  .formulario-card { padding: 25px; }
+  .help-permisses { width: 50px; height: 50px; bottom: 15px; right: 15px; font-size: 1.5rem; }
+}
+@media (max-width: 480px) {
+  .background-logo { width: 300px; }
+  .formulario-card { padding: 20px; margin: 0 10px; }
+  .help-permisses { width: 45px; height: 45px; font-size: 1.3rem; }
+}

@@ -1,0 +1,365 @@
+.verpermisos-container {
+  min-height: 100vh;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  background: radial-gradient(circle at top, #e6f7ec, #ffffff);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fondo con logo protagonista */
+.background-logo-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  animation: slowFloat 12s ease-in-out infinite alternate;
+}
+
+.background-logo {
+  width: 800px;
+  opacity: 0.1;
+  filter: drop-shadow(0 0 15px rgba(0, 0, 0, 0.15));
+  transition: all 0.8s ease;
+}
+
+/* Pantalla de carga */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeIn 0.5s ease;
+}
+
+.loading-logo {
+  width: 160px;
+  opacity: 0.9;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.loading-text {
+  margin-top: 18px;
+  color: #21a162;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+.loader {
+  margin-top: 12px;
+  width: 60px;
+  height: 6px;
+  background: #d9f4e1;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.loader::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 50%;
+  height: 100%;
+  background: #21a162;
+  border-radius: 10px;
+  animation: loadingBar 1.6s infinite linear;
+}
+
+/* Tarjeta principal */
+.verpermisos-card {
+  background-color: rgba(255, 255, 255, 0.96);
+  padding: 35px 45px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  max-width: 700px;
+  backdrop-filter: blur(6px);
+  position: relative;
+}
+
+.animate-form {
+  animation: fadeInUp 0.8s ease;
+}
+
+/* Botón volver */
+.volver-btn {
+  background-color: #21a162;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+}
+
+.volver-btn:hover {
+  background-color: #1a8c50;
+  transform: translateY(-2px);
+}
+
+/* Título */
+h2 {
+  color: #21a162;
+  font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.subtitulo {
+  text-align: center;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+/* Tarjetas de permisos */
+.permiso-item {
+  position: relative;
+  border: 1px solid #d8f0e0;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+.permiso-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.permiso-titulo {
+  font-weight: 600;
+  font-size: 18px;
+  color: #21a162;
+  margin-bottom: 6px;
+}
+
+.permiso-fecha {
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.permiso-comentarios {
+  color: #444;
+  font-size: 14px;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+}
+
+.permiso-archivo {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
+  gap: 6px;
+}
+
+.icono-archivo {
+  color: #21a162;
+}
+
+/* Estado */
+.estado {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 5px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.estado.pendiente {
+  background-color: #fff6c4;
+  color: #927a00;
+}
+
+.estado.aprobado {
+  background-color: #c8f5d6;
+  color: #207c48;
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+@keyframes slowFloat {
+  from { transform: translate(-50%, -48%) scale(1); }
+  to { transform: translate(-50%, -52%) scale(1.05); }
+}
+
+@keyframes loadingBar {
+  0% { left: -50%; }
+  50% { left: 100%; }
+  100% { left: -50%; }
+}
+
+@media (max-width: 768px) {
+  .verpermisos-card {
+    padding: 25px;
+  }
+
+  .background-logo {
+    width: 480px;
+  }
+}
+
+@media (max-width: 480px) {
+  .verpermisos-card {
+    padding: 20px;
+    margin: 0 10px;
+  }
+
+  .background-logo {
+    width: 300px;
+  }
+}
+
+/* === BOTÓN FLOTANTE DE AYUDA === */
+.help-permisos-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: transparent;
+  color: #21a162;
+  border: none;
+  border-radius: 50%;
+  padding: 1rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+  z-index: 1000;
+  
+}
+
+.help-permisos-btn:hover {
+  transform: scale(2.08);
+  background: white;
+}
+
+.help-permisos-btn::after {
+  content: "¿Ayuda?";
+  position: absolute;
+  right: 35px;
+  background: transparent;
+  color: #21a162;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+.help-permisos-btn:hover::after {
+  opacity: 1;
+  transform: scale(0.9);
+}
+
+/* === MODAL DE AYUDA === */
+.help-permisos-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.help-permisos-content {
+  position: relative;
+  background: white;
+  border-radius: 15px;
+  padding: 1rem;
+  max-width: 90%;
+  max-height: 90%;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  animation: fadeIn 0.4s ease;
+}
+
+.help-permisos-content img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.help-permisos-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: #ff4b4b;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.4rem 0.6rem;
+  transition: 0.3s;
+}
+
+.help-permisos-close:hover {
+  background: #e63c3c;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .help-permisos-btn {
+    padding: 0.8rem;
+    font-size: 1.2rem;
+  }
+
+  .help-permisos-content {
+    width: 95%;
+    padding: 0.8rem;
+  }
+}
+.help-permisos-content img {
+    height: auto;
+  }
