@@ -16,9 +16,9 @@ import logo from "../assets/images/fondo.png";
 import helpImage from "../assets/images/permisoshelp.png";
 
 const TIPOS_SOLICITUD = {
-  Vacaciones: { id: 1, diasDisponibles: 14 },
+  Vacaciones: { id: 1, diasDisponibles: 15 },
   Maternidad: { id: 2, diasDisponibles: 126 },
-  Paternidad: { id: 3, diasDisponibles: 11 },
+  Paternidad: { id: 3, diasDisponibles: 28 },
   Incapacidad: { id: 4, diasDisponibles: "Variable" },
   Luto: { id: 5, diasDisponibles: 5 },
   Calamidad: { id: 6, diasDisponibles: "Variable" },
